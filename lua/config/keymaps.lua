@@ -2,22 +2,18 @@
 vim.keymap.set("n", "<Leader>o", "<cmd>Oil --float<CR>", {desc = "Open parrent directory in Oil"});
 
 
-vim.keymap.set('n', '<leader>w',"<cmd>w<CR>" , { desc = 'Save' })
-vim.keymap.set('n', '<leader>q',"<cmd>q<CR>" , { desc = 'Quit' })
+-- Code Actions
+vim.keymap.set('n', 'J', function() vim.diagnostic.open_float() end, {desc = "Open line diagnostic"})
 
+-- Basics commands
+vim.keymap.set('n', '<leader>w', "<cmd>w<CR>" , { desc = 'Save' })
+vim.keymap.set('n', '<leader>q', "<cmd>q<CR>" , { desc = 'Quit' })
+vim.keymap.set('n', '<leader>e', "<cmd>NvimTreeFocus<CR>", { desc = "Project Explorer" })
 -- Search keymaps
-vim.keymap.set('n', '<leader>ff', function()
-  require('fzf-lua').files()
-end, {desc = "files search"})
-vim.keymap.set('n', '<leader>fg', function()
-  require('fzf-lua').live_grep()
-end, {desc = "grep search"})
-vim.keymap.set('n', '<leader>fd', function()
-  require('fzf-lua').builtin()
-end, {desc = "fzf all"})
-vim.keymap.set('n', '<leader><leader>', function()
-  require('fzf-lua').buffers()
-end, {desc = "buffers"})
+vim.keymap.set('n', '<leader>ff', function() require('fzf-lua').files() end, {desc = "files search"})
+vim.keymap.set('n', '<leader>fg', function() require('fzf-lua').live_grep() end, {desc = "grep search"})
+vim.keymap.set('n', '<leader>fd', function() require('fzf-lua').builtin() end, {desc = "fzf all"})
+vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').buffers() end, {desc = "buffers"})
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which

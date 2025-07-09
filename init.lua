@@ -12,6 +12,7 @@ vim.o.mouse = 'a'
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.g.have_nerd_font = true
 
 vim.cmd("colorscheme kanagawa");
 vim.cmd("ShowkeysToggle")
