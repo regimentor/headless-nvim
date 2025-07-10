@@ -52,3 +52,10 @@ This configuration uses [lazy.nvim](https://github.com/folke/lazy.nvim) as a plu
 
 1.  Clone this repository to `~/.config/nvim`.
 2.  Start Neovim. `lazy.nvim` will automatically install all the plugins.
+
+## TODO
+
+- [ ] Add code completions
+- [ ] Add LSP status (starting/loading)
+- [ ] Display git status on the status line
+- [ ] Add cmdline
