@@ -24,22 +24,28 @@ return {
                 vim.keymap.set("n", "gi", function() fzf_lua.lsp_implementations() end, opts) 
 
                 opts.desc = "Show LSP type definitions"
-                vim.keymap.set("n", "gt", function() fzf_lua.lsp_type_definitions() end, opts) 
+                vim.keymap.set("n", "gt", function() fzf_lua.lsp_typedefs() end, opts) 
 
                 opts.desc = "See available code actions"
-                vim.keymap.set({ "n", "v" }, "<leader>vca", function() vim.lsp.buf.code_action() end, opts)                 
+                vim.keymap.set({ "n", "v" }, "ga", function() vim.lsp.buf.code_action() end, opts)                 
 
                 opts.desc = "Smart rename"
-                vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts) 
+                vim.keymap.set("n", "gr", function() vim.lsp.buf.rename() end, opts) 
 
                 opts.desc = "Show buffer diagnostics"
-                vim.keymap.set("n", "<leader>D", function() fzf_lua.diagnostics_buf() end, opts) 
+                vim.keymap.set("n", "gb", function() fzf_lua.diagnostics_document() end, opts) 
+
+                opts.desc = "Show workspace diagnostics"
+                vim.keymap.set("n", "gB", function() fzf_lua.diagnostics_workspace() end, opts) 
 
                 opts.desc = "Show line diagnostics"
-                vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float() end, opts) 
+                vim.keymap.set("n", "D", function() vim.diagnostic.open_float() end, opts) 
 
                 opts.desc = "Show documentation for what is under cursor"
-                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts) 
+                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+
+                opts.desc = "Show Document Symbols"
+                vim.keymap.set("n", "gs", function() fzf_lua.lsp_document_symbols() end, opts)
 
                 opts.desc = "Restart LSP"
                 vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) 
@@ -50,6 +56,7 @@ return {
 
 
         local lspconfig = require("lspconfig")
+        
         lspconfig.rust_analyzer.setup({
             settings = {
                 ["rust-analyzer"] = {
@@ -63,6 +70,7 @@ return {
                 },
             },
         })
+        
         lspconfig.lua_ls.setup({
             settings = {
                 Lua = {
@@ -79,6 +87,18 @@ return {
                         },
 
                     },
+                },
+            },
+        })
+        
+        lspconfig.gopls.setup({
+            settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                    staticcheck = true,
+                    gofumpt = true,
                 },
             },
         })

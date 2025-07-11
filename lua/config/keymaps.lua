@@ -3,7 +3,7 @@ vim.keymap.set("n", "<Leader>o", "<cmd>Oil --float<CR>", {desc = "Open parrent d
 
 
 -- Code Actions
-vim.keymap.set('n', 'J', function() vim.diagnostic.open_float() end, {desc = "Open line diagnostic"})
+-- vim.keymap.set('n', 'J', function() vim.diagnostic.open_float() end, {desc = "Open line diagnostic"})
 
 -- Basics commands
 vim.keymap.set('n', '<leader>w', "<cmd>w<CR>" , { desc = 'Save' })

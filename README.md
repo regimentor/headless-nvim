@@ -18,6 +18,7 @@ This configuration uses [lazy.nvim](https://github.com/folke/lazy.nvim) as a plu
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Language Server Protocol (LSP) configurations for Neovim |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | A blazing fast and easy to configure statusline for Neovim |
 | [mason.nvim](https://github.com/williamboman/mason.nvim) | Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters. |
+| [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer tree for Neovim |
 | [noice.nvim](https://github.com/folke/noice.nvim) | Replaces the UI for messages, cmdline and popupmenu |
 | [oil.nvim](https://github.com/stevearc/oil.nvim) | A vim-vinegar like file explorer that lets you edit your filesystem like a normal buffer. |
 | [showkeys.nvim](https://github.com/nvzone/showkeys.nvim) | A Neovim plugin to show keys pressed. |
@@ -37,13 +38,15 @@ This configuration uses [lazy.nvim](https://github.com/folke/lazy.nvim) as a plu
 | `gd` | Show LSP definitions |
 | `gi` | Show LSP implementations |
 | `gt` | Show LSP type definitions |
-| `<leader>vca` | See available code actions |
-| `<leader>rn` | Smart rename |
-| `<leader>D` | Show buffer diagnostics |
-| `<leader>d` | Show line diagnostics |
+| `ga` | See available code actions |
+| `gr` | Smart rename |
+| `gb` | Show buffer diagnostics |
+| `gB` | Show workspace diagnostics |
+| `D` | Show line diagnostics |
 | `K` | Show documentation for what is under cursor |
+| `gs` | Show document symbols |
 | `<leader>rs` | Restart LSP |
-| `<C-h>` | Signature help |
+| `<C-h>` | Signature help (insert mode) |
 
 ### Git
 
@@ -178,30 +181,44 @@ This configuration uses [lazy.nvim](https://github.com/folke/lazy.nvim) as a plu
 - **Fuzzy Finding**: Powerful file and text search with `fzf-lua`
 - **LSP Support**: Full Language Server Protocol support with diagnostics and code actions
 - **Auto-formatting**: Automatic code formatting on save with `conform.nvim`
-- **File Explorer**: Edit filesystem like a buffer with `oil.nvim`
+- **File Explorer**: Edit filesystem like a buffer with `oil.nvim` and tree view with `neo-tree.nvim`
 - **Enhanced UI**: Better command line and notifications with `noice.nvim`
 - **Syntax Highlighting**: Advanced syntax highlighting with `nvim-treesitter`
 - **Status Line**: Informative status line with LSP status and git info
 - **Key Bindings**: Helpful key binding popups with `which-key.nvim`
+- **System Clipboard**: Automatic clipboard integration with system clipboard
+- **Visual Keybindings**: Show pressed keys in real-time with `showkeys.nvim`
+- **Smart Indentation**: Automatic indentation detection with `vim-sleuth`
+
+## Configuration Highlights
+
+- **System Clipboard Integration**: All yank (`y`), delete (`d`, `x`), and paste (`p`) operations are automatically synchronized with the system clipboard
+- **Custom Diagnostics**: Beautiful diagnostic icons and floating windows with rounded borders
+- **LSP Optimization**: Prevented duplicate LSP server instances with proper Mason configuration
+- **Performance**: Lazy loading of plugins for fast startup times
+- **Modern UI**: Kanagawa colorscheme with transparent diagnostic backgrounds
 
 ## Installation
 
 1.  Clone this repository to `~/.config/nvim`.
 2.  Start Neovim. `lazy.nvim` will automatically install all the plugins.
+3.  Restart Neovim to ensure all plugins are loaded correctly.
 
-## TODO
+## Requirements
 
-- [x] Add code completions (blink.cmp)
-- [x] Add LSP status (starting/loading) (lualine.nvim)
-- [x] Display git status on the status line (gitsigns.nvim)
-- [x] Add cmdline (noice.nvim)
-- [x] Add formatting (conform.nvim)
+- Neovim >= 0.9.0
+- Git
+- A terminal with true color support
+- A [Nerd Font](https://www.nerdfonts.com/) for icons (optional but recommended)
 
 ## Supported Languages
 
 - **Lua**: lua_ls, stylua
 - **Rust**: rust_analyzer, rustfmt
-- **Go**: gopls, gofmt, gofumpt, golines
+- **Go**: gopls, gofmt, gofumpt, golines, gomodifytags, gotests
 - **Python**: isort, black
-- **JavaScript/TypeScript**: prettier, prettierd
+- **JavaScript/TypeScript**: prettier
 - **Bash**: bash-language-server
+- **JSON**: prettier
+- **YAML**: prettier
+- **Markdown**: prettier

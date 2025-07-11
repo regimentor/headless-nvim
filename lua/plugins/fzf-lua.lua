@@ -15,6 +15,6 @@ return {
                                 height = 0.85,
                                 width = 0.85,
                         }
-                }
+                },
         }
 }
