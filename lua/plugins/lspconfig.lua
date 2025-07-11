@@ -47,6 +47,9 @@ return {
                 opts.desc = "Show Document Symbols"
                 vim.keymap.set("n", "gs", function() fzf_lua.lsp_document_symbols() end, opts)
 
+                opts.desc = "Show workspace Symbols"
+                vim.keymap.set("n", "gS", function() fzf_lua.lsp_workspace_symbols() end, opts)
+
                 opts.desc = "Restart LSP"
                 vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) 
 
