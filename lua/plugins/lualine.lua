@@ -1,9 +1,48 @@
+local function get_lsp_status()
+        local clients = vim.lsp.get_clients({ bufnr = 0 })
+        if #clients == 0 then
+                return ""
+        end
+        local client_names = {}
+        for _, client in ipairs(clients) do
+                table.insert(client_names, client.name)
+        end
+        return "  " .. table.concat(client_names, ", ")
+end
+
+
+local my_diagnostics = function()
+        local diagnostic_counts = vim.diagnostic.count(0)
+        local errors = diagnostic_counts[vim.diagnostic.severity.ERROR] or 0
+        local warnings = diagnostic_counts[vim.diagnostic.severity.WARN] or 0
+        local info = diagnostic_counts[vim.diagnostic.severity.INFO] or 0
+        local hints = diagnostic_counts[vim.diagnostic.severity.HINT] or 0
+        if errors == 0 and warnings == 0 and info == 0 and hints == 0 then
+                return " OK"
+        end
+        local result = {}
+        if errors > 0 then
+                table.insert(result, " " .. errors)
+        end
+        if warnings > 0 then
+                table.insert(result, " " .. warnings)
+        end
+        if info > 0 then
+                table.insert(result, " " .. info)
+        end
+        if hints > 0 then
+                table.insert(result, " " .. hints)
+        end
+        return table.concat(result, " ")
+end
+
 return {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
                 local lualine = require("lualine")
-                local lazy_status = require("lazy.status") 
+                local lazy_status = require("lazy.status")
+
 
                 local colors = {
                         color0 = "#092236",
@@ -40,26 +79,25 @@ return {
                 }
 
                 local mode = {
-                        'mode',
+                        "mode",
                         fmt = function(str)
-                                return ' ' .. str
+                                return " " .. str
                         end,
                 }
 
                 local diff = {
-                        'diff',
+                        "diff",
                         colored = true,
-                        symbols = { added = ' ', modified = ' ', removed = ' ' }, 
+                        symbols = { added = " ", modified = " ", removed = " " },
                 }
 
                 local filename = {
-                        'filename',
+                        "filename",
                         file_status = true,
                         path = 0,
                 }
 
-                local branch = {'branch', icon = {'', color={fg='#A6D4DE'}}, '|'}
-
+                local branch = { "branch", icon = { "", color = { fg = "#A6D4DE" } }, "|" }
 
                 lualine.setup({
                         icons_enabled = true,
@@ -73,6 +111,8 @@ return {
                                 lualine_b = { branch },
                                 lualine_c = { diff, filename },
                                 lualine_x = {
+                                        { my_diagnostics },
+                                        { get_lsp_status },
                                         {
                                                 lazy_status.updates,
                                                 cond = lazy_status.has_updates,

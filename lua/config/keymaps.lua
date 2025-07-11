@@ -8,7 +8,7 @@ vim.keymap.set('n', 'J', function() vim.diagnostic.open_float() end, {desc = "Op
 -- Basics commands
 vim.keymap.set('n', '<leader>w', "<cmd>w<CR>" , { desc = 'Save' })
 vim.keymap.set('n', '<leader>q', "<cmd>q<CR>" , { desc = 'Quit' })
-vim.keymap.set('n', '<leader>e', "<cmd>NvimTreeFocus<CR>", { desc = "Project Explorer" })
+vim.keymap.set('n', '<leader>e', "<cmd>Neotree<CR>", { desc = "Project Explorer" })
 -- Search keymaps
 vim.keymap.set('n', '<leader>ff', function() require('fzf-lua').files() end, {desc = "files search"})
 vim.keymap.set('n', '<leader>fg', function() require('fzf-lua').live_grep() end, {desc = "grep search"})
