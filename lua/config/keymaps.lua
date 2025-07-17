@@ -15,6 +15,28 @@ vim.keymap.set('n', '<leader>fg', function() require('fzf-lua').live_grep() end,
 vim.keymap.set('n', '<leader>fd', function() require('fzf-lua').builtin() end, {desc = "fzf all"})
 vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').buffers() end, {desc = "buffers"})
 
+-- Tab behavior in Insert mode
+vim.keymap.set('i', '<Tab>', function()
+    -- Если есть автокомплишен, используем его
+    if vim.fn.pumvisible() == 1 then
+        return '<C-n>'
+    else
+        -- Иначе вставляем обычный Tab
+        return '<Tab>'
+    end
+end, { expr = true, desc = "Tab completion or indent" })
+
+vim.keymap.set('i', '<S-Tab>', function()
+    if vim.fn.pumvisible() == 1 then
+        return '<C-p>'
+    else
+        return '<S-Tab>'
+    end
+end, { expr = true, desc = "Shift-Tab completion or unindent" })
+
+-- Visual mode indentation
+vim.keymap.set('v', '<Tab>', '>gv', { desc = "Indent selection and keep selection" })
+vim.keymap.set('v', '<S-Tab>', '<gv', { desc = "Unindent selection and keep selection" })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.

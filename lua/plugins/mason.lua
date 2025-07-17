@@ -24,6 +24,7 @@ return {
                 "yamlls",
                 "html",
                 "cssls",
+                "pyright",
             },
             automatic_enable = {
                 exclude = {
