@@ -47,5 +47,7 @@ return {
         vim.keymap.set("i", "<C-k>", "<Plug>(copilot-accept-line)", {
             desc = "Accept next line of Copilot suggestion",
         })
+
+        vim.api.nvim_del_keymap("i", "<Tab>")
     end,
 }

@@ -1,49 +1,42 @@
 -- Open parrent directory in Oil
-vim.keymap.set("n", "<Leader>o", "<cmd>Oil --float<CR>", {desc = "Open parrent directory in Oil"});
-
+vim.keymap.set("n", "<Leader>o", "<cmd>Oil --float<CR>", { desc = "Open parrent directory in Oil" })
 
 -- Code Actions
 -- vim.keymap.set('n', 'J', function() vim.diagnostic.open_float() end, {desc = "Open line diagnostic"})
 
 -- Basics commands
-vim.keymap.set('n', '<leader>w', "<cmd>w<CR>" , { desc = 'Save' })
-vim.keymap.set('n', '<leader>q', "<cmd>q<CR>" , { desc = 'Quit' })
-vim.keymap.set('n', '<leader>e', "<cmd>Neotree<CR>", { desc = "Project Explorer" })
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save" })
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit" })
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree<CR>", { desc = "Project Explorer" })
 -- Search keymaps
-vim.keymap.set('n', '<leader>ff', function() require('fzf-lua').files() end, {desc = "files search"})
-vim.keymap.set('n', '<leader>fg', function() require('fzf-lua').live_grep() end, {desc = "grep search"})
-vim.keymap.set('n', '<leader>fd', function() require('fzf-lua').builtin() end, {desc = "fzf all"})
-vim.keymap.set('n', '<leader><leader>', function() require('fzf-lua').buffers() end, {desc = "buffers"})
-
--- Tab behavior in Insert mode
-vim.keymap.set('i', '<Tab>', function()
-    -- Если есть автокомплишен, используем его
-    if vim.fn.pumvisible() == 1 then
-        return '<C-n>'
-    else
-        -- Иначе вставляем обычный Tab
-        return '<Tab>'
-    end
-end, { expr = true, desc = "Tab completion or indent" })
-
-vim.keymap.set('i', '<S-Tab>', function()
-    if vim.fn.pumvisible() == 1 then
-        return '<C-p>'
-    else
-        return '<S-Tab>'
-    end
-end, { expr = true, desc = "Shift-Tab completion or unindent" })
+vim.keymap.set("n", "<leader>ff", function()
+    require("fzf-lua").files()
+end, { desc = "files search" })
+vim.keymap.set("n", "<leader>fg", function()
+    require("fzf-lua").live_grep()
+end, { desc = "grep search" })
+vim.keymap.set("n", "<leader>fd", function()
+    require("fzf-lua").builtin()
+end, { desc = "fzf all" })
+vim.keymap.set("n", "<leader><leader>", function()
+    require("fzf-lua").buffers()
+end, { desc = "buffers" })
 
 -- Visual mode indentation
-vim.keymap.set('v', '<Tab>', '>gv', { desc = "Indent selection and keep selection" })
-vim.keymap.set('v', '<S-Tab>', '<gv', { desc = "Unindent selection and keep selection" })
+vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent selection and keep selection" })
+vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Unindent selection and keep selection" })
+
+-- Move lines up and down in visual mode
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { silent = true })
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { silent = true })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")

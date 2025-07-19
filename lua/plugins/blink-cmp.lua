@@ -3,7 +3,7 @@ return {
     dependencies = {
         "rafamadriz/friendly-snippets",
         "onsails/lspkind.nvim",
-        "nvim-tree/nvim-web-devicons"
+        "nvim-tree/nvim-web-devicons",
     },
     event = "InsertEnter",
     -- Используем версию, как в примере, для стабильности
@@ -11,25 +11,34 @@ return {
 
     opts = {
         -- Используем пресет 'default', как в примере
-        keymap = { preset = "default",
-            ['<Tab>'] = {
-                function(cmp)
-                    if cmp.snippet_active() then return cmp.accept()
-                    else return cmp.select_and_accept() end
-                end,
-                'snippet_forward',
-                'fallback'
-            },
+        keymap = {
+            preset = "none",
+            ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+            --  ["<C-e>"] = { "hide" },
+            ["<C-Y>"] = { "select_and_accept" },
+
+            ["<Up>"] = { "select_prev", "fallback" },
+            ["<Down>"] = { "select_next", "fallback" },
+            --  ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+            --  ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+
+            ["<C-Up>"] = { "scroll_documentation_up", "fallback" },
+            ["<C-Down"] = { "scroll_documentation_down", "fallback" },
+
+            --  ["<C-.>"] = { "snippet_forward", "fallback" },
+            --  ["<C-S-.>"] = { "snippet_backward", "fallback" },
+
+            ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
         },
 
         appearance = {
             nerd_font_variant = "mono",
         },
 
-        completion = { 
-            documentation = { auto_show = false, window = { border = 'single' }}, 
+        completion = {
+            documentation = { auto_show = false, window = { border = "single" } },
             menu = {
-                border = 'single',
+                border = "single",
                 draw = {
                     components = {
                         kind_icon = {
@@ -59,10 +68,10 @@ return {
                                 end
                                 return hl
                             end,
-                        }
-                    }
-                }
-            }
+                        },
+                    },
+                },
+            },
         },
 
         -- Определяем источники, которые будут использоваться
@@ -73,4 +82,3 @@ return {
         fuzzy = { implementation = "prefer_rust_with_warning" },
     },
 }
-
