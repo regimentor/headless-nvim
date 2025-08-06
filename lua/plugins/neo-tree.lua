@@ -1,14 +1,16 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
-    dependencies = {"nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    "MunifTanjim/nui.nvim" -- Optional image support for file preview: See `# Preview Mode` for more information.
-    -- {"3rd/image.nvim", opts = {}},
-    -- OR use snacks.nvim's image module:
-    -- "folke/snacks.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim", -- Optional image support for file preview: See `# Preview Mode` for more information.
+        -- {"3rd/image.nvim", opts = {}},
+        -- OR use snacks.nvim's image module:
+        -- "folke/snacks.nvim",
     },
     lazy = true, -- neo-tree will lazily load itself
-    cmd = {"Neotree", "NeotreeFloat", "NeotreeReveal", "NeotreeRevealToggle", "NeotreeFocus"},
+    cmd = { "Neotree", "NeotreeFloat", "NeotreeReveal", "NeotreeRevealToggle", "NeotreeFocus" },
     ---@module "neo-tree"
     ---@type neotree.Config?
     opts = {
@@ -18,27 +20,27 @@ return {
         enable_diagnostics = true,
         default_component_configs = {
             container = {
-                enable_character_fade = true
+                enable_character_fade = true,
             },
             indent = {
                 indent_size = 2,
                 padding = 1,
                 with_markers = true,
                 indent_marker = "│",
-                last_indent_marker = "└"
+                last_indent_marker = "└",
             },
             icon = {
-                folder_closed = "▸",
-                folder_open = "▾",
-                folder_empty = "◦",
-                default = "▪"
+                folder_closed = "",
+                folder_open = "",
+                folder_empty = "",
+                default = "▪",
             },
             modified = {
-                symbol = "[+]"
+                symbol = "[+]",
             },
             name = {
                 trailing_slash = false,
-                use_git_status_colors = true
+                use_git_status_colors = true,
             },
             git_status = {
                 align = "left",
@@ -51,30 +53,30 @@ return {
                     ignored = "·",
                     unstaged = "○",
                     staged = "✓",
-                    conflict = "⚡"
-                }
+                    conflict = "⚡",
+                },
             },
             diagnostics = {
                 symbols = {
                     hint = "󰌶",
                     info = "󰋽",
                     warn = "󰀪",
-                    error = "󰅚"
+                    error = "󰅚",
                 },
                 highlights = {
                     hint = "DiagnosticSignHint",
                     info = "DiagnosticSignInfo",
                     warn = "DiagnosticSignWarn",
-                    error = "DiagnosticSignError"
-                }
-            }
+                    error = "DiagnosticSignError",
+                },
+            },
         },
         window = {
             position = "left",
             width = 30,
             mapping_options = {
                 noremap = true,
-                nowait = true
+                nowait = true,
             },
             mappings = {
                 ["<space>"] = "toggle_node",
@@ -84,8 +86,8 @@ return {
                 ["P"] = {
                     "toggle_preview",
                     config = {
-                        use_float = true
-                    }
+                        use_float = true,
+                    },
                 },
                 ["l"] = "focus_preview",
                 ["S"] = "open_split",
@@ -94,7 +96,7 @@ return {
                 ["w"] = "open_with_window_picker",
                 ["C"] = "close_node",
                 ["z"] = "close_all_nodes",
-                ["a"] = {"add"},
+                ["a"] = { "add" },
                 ["A"] = "add_directory",
                 ["y"] = "copy_to_clipboard",
                 ["d"] = "delete",
@@ -114,19 +116,19 @@ return {
                     if node then
                         vim.cmd("wincmd p") -- Переключиться на предыдущее окно
                     end
-                end
-            }
+                end,
+            },
         },
         filesystem = {
             filtered_items = {
                 visible = false,
                 hide_dotfiles = false,
                 hide_gitignored = false,
-                hide_hidden = false
+                hide_hidden = false,
             },
             follow_current_file = {
                 enabled = true,
-                leave_dirs_open = false
+                leave_dirs_open = false,
             },
             group_empty_dirs = false,
             window = {
@@ -146,40 +148,40 @@ return {
                         nowait = false,
                         config = {
                             title = "Order by",
-                            prefix_key = "o"
-                        }
+                            prefix_key = "o",
+                        },
                     },
                     ["oc"] = {
                         "order_by_created",
-                        nowait = false
+                        nowait = false,
                     },
                     ["od"] = {
                         "order_by_diagnostics",
-                        nowait = false
+                        nowait = false,
                     },
                     ["og"] = {
                         "order_by_git_status",
-                        nowait = false
+                        nowait = false,
                     },
                     ["om"] = {
                         "order_by_modified",
-                        nowait = false
+                        nowait = false,
                     },
                     ["on"] = {
                         "order_by_name",
-                        nowait = false
+                        nowait = false,
                     },
                     ["os"] = {
                         "order_by_size",
-                        nowait = false
+                        nowait = false,
                     },
                     ["ot"] = {
                         "order_by_type",
-                        nowait = false
-                    }
-                }
+                        nowait = false,
+                    },
+                },
             },
-            commands = {}
-        }
-    }
+            commands = {},
+        },
+    },
 }
