@@ -40,6 +40,11 @@ vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Unindent selection and keep sele
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
 
+-- Format file
+vim.keymap.set("n", "<C-S-i>", function()
+  require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "Format file" })
+
 -- ============================================================================
 -- Terminal
 -- ============================================================================
