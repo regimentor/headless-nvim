@@ -85,22 +85,7 @@ return {
     })
 
     -- Configure LSP servers
-    local function setup_rust_analyzer()
-      lspconfig.rust_analyzer.setup({
-        settings = {
-          ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-            },
-            check = { command = "clippy" },
-            checkOnSave = true,
-            procMacro = { enable = true },
-          },
-        },
-      })
-    end
-
+    -- Note: rust_analyzer is configured via rustaceanvim plugin
     local function setup_lua_ls()
       lspconfig.lua_ls.setup({
         settings = {
@@ -137,7 +122,7 @@ return {
     end
 
     -- Initialize LSP servers
-    setup_rust_analyzer()
+    -- Note: rust_analyzer is initialized by rustaceanvim
     setup_lua_ls()
     setup_gopls()
   end,
