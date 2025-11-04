@@ -1,4 +1,3 @@
--- lazy.nvim
 return {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -8,22 +7,22 @@ return {
             view = "cmdline_popup",
             opts = {
                 border = {
-                    style = "single"
+                    style = "single",
                 },
                 position = {
                     row = 5,
-                    col = "50%"
+                    col = "50%",
                 },
                 size = {
                     width = 60,
-                    height = "auto"
-                }
+                    height = "auto",
+                },
             }
         },
         popupmenu = {
             enabled = true,
             backend = "nui",
-            kind_icons = {}
+            kind_icons = {},
         },
         messages = {
             enabled = true,
@@ -31,12 +30,11 @@ return {
             view_error = "notify",
             view_warn = "notify",
             view_history = "messages",
-            view_search = "virtualtext"
-        }
+            view_search = "virtualtext",
+        },
     },
-    dependencies = { -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim", -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify"}
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+    },
 }

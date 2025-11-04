@@ -1,109 +1,144 @@
+-- ============================================================================
+-- LSP Configuration
+-- ============================================================================
+
 return {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        "ibhagwan/fzf-lua", -- Добавляем fzf-lua как зависимость
-    },
-    config = function()
-        vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-            callback = function(ev)
-                local opts = { buffer = ev.buf, silent = true }
-                local fzf_lua = require("fzf-lua")
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "ibhagwan/fzf-lua",
+  },
+  config = function()
+    local lspconfig = require("lspconfig")
+    local fzf_lua = require("fzf-lua")
 
-                opts.desc = "Show LSP references"
-                vim.keymap.set("n", "gR", function() fzf_lua.lsp_references() end, opts) 
+    -- Setup LSP keymaps
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      callback = function(ev)
+        local opts = { buffer = ev.buf, silent = true }
 
-                opts.desc = "Go to declaration"
-                vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts) 
+        -- Navigation
+        vim.keymap.set("n", "gR", function()
+          fzf_lua.lsp_references()
+        end, vim.tbl_extend("force", opts, { desc = "Show LSP references" }))
 
-                opts.desc = "Show LSP definitions"
-                vim.keymap.set("n", "gd", function() fzf_lua.lsp_definitions() end, opts) 
+        vim.keymap.set("n", "gD", function()
+          vim.lsp.buf.declaration()
+        end, vim.tbl_extend("force", opts, { desc = "Go to declaration" }))
 
-                opts.desc = "Show LSP implementations"
-                vim.keymap.set("n", "gi", function() fzf_lua.lsp_implementations() end, opts) 
+        vim.keymap.set("n", "gd", function()
+          fzf_lua.lsp_definitions()
+        end, vim.tbl_extend("force", opts, { desc = "Show LSP definitions" }))
 
-                opts.desc = "Show LSP type definitions"
-                vim.keymap.set("n", "gt", function() fzf_lua.lsp_typedefs() end, opts) 
+        vim.keymap.set("n", "gi", function()
+          fzf_lua.lsp_implementations()
+        end, vim.tbl_extend("force", opts, { desc = "Show LSP implementations" }))
 
-                opts.desc = "See available code actions"
-                vim.keymap.set({ "n", "v" }, "ga", function() vim.lsp.buf.code_action() end, opts)                 
+        vim.keymap.set("n", "gt", function()
+          fzf_lua.lsp_typedefs()
+        end, vim.tbl_extend("force", opts, { desc = "Show LSP type definitions" }))
 
-                opts.desc = "Smart rename"
-                vim.keymap.set("n", "gr", function() vim.lsp.buf.rename() end, opts) 
+        -- Code actions
+        vim.keymap.set({ "n", "v" }, "ga", function()
+          vim.lsp.buf.code_action()
+        end, vim.tbl_extend("force", opts, { desc = "See available code actions" }))
 
-                opts.desc = "Show buffer diagnostics"
-                vim.keymap.set("n", "gb", function() fzf_lua.diagnostics_document() end, opts) 
+        vim.keymap.set("n", "gr", function()
+          vim.lsp.buf.rename()
+        end, vim.tbl_extend("force", opts, { desc = "Smart rename" }))
 
-                opts.desc = "Show workspace diagnostics"
-                vim.keymap.set("n", "gB", function() fzf_lua.diagnostics_workspace() end, opts) 
+        -- Diagnostics
+        vim.keymap.set("n", "gb", function()
+          fzf_lua.diagnostics_document()
+        end, vim.tbl_extend("force", opts, { desc = "Show buffer diagnostics" }))
 
-                opts.desc = "Show line diagnostics"
-                vim.keymap.set("n", "D", function() vim.diagnostic.open_float() end, opts) 
+        vim.keymap.set("n", "gB", function()
+          fzf_lua.diagnostics_workspace()
+        end, vim.tbl_extend("force", opts, { desc = "Show workspace diagnostics" }))
 
-                opts.desc = "Show documentation for what is under cursor"
-                vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+        vim.keymap.set("n", "D", function()
+          vim.diagnostic.open_float()
+        end, vim.tbl_extend("force", opts, { desc = "Show line diagnostics" }))
 
-                opts.desc = "Show Document Symbols"
-                vim.keymap.set("n", "gs", function() fzf_lua.lsp_document_symbols() end, opts)
+        -- Documentation
+        vim.keymap.set("n", "K", function()
+          vim.lsp.buf.hover()
+        end, vim.tbl_extend("force", opts, { desc = "Show documentation for what is under cursor" }))
 
-                opts.desc = "Show workspace Symbols"
-                vim.keymap.set("n", "gS", function() fzf_lua.lsp_workspace_symbols() end, opts)
+        vim.keymap.set("i", "<C-h>", function()
+          vim.lsp.buf.signature_help()
+        end, opts)
 
-                opts.desc = "Restart LSP"
-                vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) 
+        -- Symbols
+        vim.keymap.set("n", "gs", function()
+          fzf_lua.lsp_document_symbols()
+        end, vim.tbl_extend("force", opts, { desc = "Show Document Symbols" }))
 
-                vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-            end
-        })
+        vim.keymap.set("n", "gS", function()
+          fzf_lua.lsp_workspace_symbols()
+        end, vim.tbl_extend("force", opts, { desc = "Show workspace Symbols" }))
 
+        -- LSP management
+        vim.keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>", vim.tbl_extend("force", opts, { desc = "Restart LSP" }))
+      end,
+    })
 
-        local lspconfig = require("lspconfig")
-        
-        lspconfig.rust_analyzer.setup({
-            settings = {
-                ["rust-analyzer"] = {
-                    cargo = {
-                        allFeatures = true,
-                        loadOutDirsFromCheck = true,
-                    },
-                    check = { command = "clippy" },
-                    checkOnSave = true,
-                    procMacro = { enable = true },
-                },
+    -- Configure LSP servers
+    local function setup_rust_analyzer()
+      lspconfig.rust_analyzer.setup({
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
             },
-        })
-        
-        lspconfig.lua_ls.setup({
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
-                    },
-                    completion = {
-                        callSnippet = "Replace",
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true,
-                        },
+            check = { command = "clippy" },
+            checkOnSave = true,
+            procMacro = { enable = true },
+          },
+        },
+      })
+    end
 
-                    },
-                },
+    local function setup_lua_ls()
+      lspconfig.lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
             },
-        })
-        
-        lspconfig.gopls.setup({
-            settings = {
-                gopls = {
-                    analyses = {
-                        unusedparams = true,
-                    },
-                    staticcheck = true,
-                    gofumpt = true,
-                },
+            completion = {
+              callSnippet = "Replace",
             },
-        })
-    end,
+            workspace = {
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.stdpath("config") .. "/lua"] = true,
+              },
+            },
+          },
+        },
+      })
+    end
+
+    local function setup_gopls()
+      lspconfig.gopls.setup({
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      })
+    end
+
+    -- Initialize LSP servers
+    setup_rust_analyzer()
+    setup_lua_ls()
+    setup_gopls()
+  end,
 }
