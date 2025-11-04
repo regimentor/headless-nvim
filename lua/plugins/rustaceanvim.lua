@@ -38,11 +38,11 @@ return {
               },
               -- Function parameters (disabled, like in RustRover)
               parameterHints = {
-                enable = false,
+                enable = true,
               },
               -- Chaining hints (disabled)
               chainingHints = {
-                enable = false,
+                enable = true,
               },
             },
           },
