@@ -16,6 +16,10 @@ return {
                 "prettier",
                 stop_after_first = true,
             },
+            prisma = {
+                "prismaFmt",
+                lsp_format = "fallback",
+            },
         },
         format_on_save = {
             -- These options will be passed to conform.format()

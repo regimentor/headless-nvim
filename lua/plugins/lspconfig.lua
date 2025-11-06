@@ -121,9 +121,14 @@ return {
       })
     end
 
+    local function setup_prismals()
+      lspconfig.prismals.setup({})
+    end
+
     -- Initialize LSP servers
     -- Note: rust_analyzer is initialized by rustaceanvim
     setup_lua_ls()
     setup_gopls()
+    setup_prismals()
   end,
 }

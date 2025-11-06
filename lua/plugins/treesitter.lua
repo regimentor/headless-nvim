@@ -20,6 +20,7 @@ return {
         "typescript",
         "go",
         "rust",
+        "prisma",
       },
 
       incremental_selection = {
