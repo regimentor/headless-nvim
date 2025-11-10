@@ -10,7 +10,7 @@ return {
   opts = {
     keymap = {
       preset = "none",
-      ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<C-l>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-Y>"] = { "select_and_accept" },
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
