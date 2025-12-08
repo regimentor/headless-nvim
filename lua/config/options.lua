@@ -1,7 +1,21 @@
 -- ============================================================================
 -- Basic Vim Options
 -- ============================================================================
+-- Глобальная функция для статуслайна / винбара
+function _G.WinbarIcon()
+    local ok, devicons = pcall(require, "nvim-web-devicons")
+    if not ok then
+        return ""
+    end
 
+    local filename = vim.fn.expand("%:t")
+    if filename == "" then
+        return ""
+    end
+
+    local icon, _ = devicons.get_icon(filename, nil, { default = true })
+    return icon or ""
+end
 -- Line numbers
 vim.o.number = true
 
@@ -29,3 +43,6 @@ vim.o.confirm = true
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+-- vim.o.winbar = "%#WinBar#  %f %m "
+-- Собираем winbar
+vim.o.winbar = "%#WinBar# %{v:lua.WinbarIcon()} %f "

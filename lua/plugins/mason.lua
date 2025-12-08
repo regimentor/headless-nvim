@@ -25,12 +25,15 @@ return {
         "html",
         "cssls",
         "pyright",
+        "prismals",
+        "eslint",
       },
       automatic_enable = {
         exclude = {
           "rust_analyzer",
           "gopls",
           "lua_ls",
+          "prismals",
         },
       },
     })
@@ -49,6 +52,7 @@ return {
         "gotests",
         "isort",
         "black",
+        "eslint_d",
       },
     })
   end,

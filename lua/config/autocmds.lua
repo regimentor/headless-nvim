@@ -3,8 +3,7 @@
 -- ============================================================================
 
 -- Set colorscheme
-vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme cyberdream")
 
 -- Enable showkeys on startup
-vim.cmd("ShowkeysToggle")
-
+-- vim.cmd("ShowkeysToggle")

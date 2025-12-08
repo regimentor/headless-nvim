@@ -41,7 +41,7 @@ vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down",
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
 
 -- Format file
-vim.keymap.set("n", "<C-S-i>", function()
+vim.keymap.set("n", "<leader>gf", function()
   require("conform").format({ async = true, lsp_fallback = true })
 end, { desc = "Format file" })
 

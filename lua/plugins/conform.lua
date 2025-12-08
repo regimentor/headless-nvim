@@ -11,14 +11,33 @@ return {
                 lsp_format = "fallback",
             },
             -- Conform will run the first available formatter
+            -- Используем LSP форматирование ESLint с fallback на prettier
             javascript = {
+                lsp_format = "prefer",
+                "prettierd",
+                "prettier",
+                stop_after_first = true,
+            },
+            typescript = {
+                lsp_format = "prefer",
+                "prettierd",
+                "prettier",
+                stop_after_first = true,
+            },
+            javascriptreact = {
+                lsp_format = "prefer",
+                "prettierd",
+                "prettier",
+                stop_after_first = true,
+            },
+            typescriptreact = {
+                lsp_format = "prefer",
                 "prettierd",
                 "prettier",
                 stop_after_first = true,
             },
             prisma = {
-                "prismaFmt",
-                lsp_format = "fallback",
+                lsp_format = "prefer",
             },
         },
         format_on_save = {

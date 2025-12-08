@@ -25,24 +25,95 @@ return {
             cargo = {
               allFeatures = true,
               loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+              allTargets = true,
             },
-            check = { command = "clippy" },
-            checkOnSave = true,
-            procMacro = { enable = true },
+            check = { 
+              command = "clippy",
+              extraEnv = {},
+              allTargets = true,
+            },
+            checkOnSave = {
+              command = "clippy",
+              allTargets = true,
+            },
+            procMacro = { 
+              enable = true,
+              attributes = {
+                enable = true,
+              },
+            },
+            -- Improve type inference and analysis
+            rustc = {
+              source = "discover",
+            },
+            files = {
+              watcher = "client",
+            },
+            -- Improve type inference
+            completion = {
+              autoimport = {
+                enable = true,
+              },
+              fullFunctionSignatures = {
+                enable = true,
+              },
+            },
+            -- Improve diagnostics for better type information
+            diagnostics = {
+              enable = true,
+              experimental = {
+                enable = true,
+              },
+              disabled = {},
+              warningsAsHint = {},
+            },
+            -- Improve type analysis
+            typing = {
+              continueCommentsOnNewline = true,
+            },
+            -- Indexing settings for better type resolution
+            index = {
+              procMacro = {
+                enable = true,
+              },
+            },
             -- Inlay hints settings
             inlayHints = {
               enable = true,
-              -- Show variable types (like in RustRover)
+              -- Show variable types
               typeHints = {
                 enable = true,
+                hideClosureInitialization = false,
+                hideNamedConstructor = false,
+                maxLength = 50,
+                separator = " → ",
               },
-              -- Function parameters (disabled, like in RustRover)
+              -- Function parameters
               parameterHints = {
                 enable = true,
+                showNames = true,
+                maxLength = 25,
               },
-              -- Chaining hints (disabled)
+              -- Chaining hints
               chainingHints = {
                 enable = true,
+                maxLength = 25,
+              },
+              -- Lifetime hints
+              lifetimeElisionHints = {
+                enable = "always",
+                useParameterNames = false,
+              },
+              -- Closure return type hints
+              closureReturnTypeHints = {
+                enable = "always",
+              },
+              -- Discriminant hints
+              discriminantHints = {
+                enable = "always",
               },
             },
           },
